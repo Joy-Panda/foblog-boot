@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="studio.baxia.fo.dao.RecommendMapper">
+
+	<resultMap id="RecommendMap" type="studio.baxia.fo.pojo.Recommend">
+		<result property="id" column="id" />
+		<result property="title" column="title" />
+		<result property="articleUrl" column="article_url" />
+        <result property="summary" column="summary" />
+        <result property="pubTime" column="pub_time" />
+        <result property="updateTime" column="update_time" />
+		<result property="hits" column="hits" />
+	</resultMap>
+
+    <update id="updateHits">
+        UPDATE t_recommend
+        SET
+        hits=hits+1
+        WHERE id =
+        #{id,jdbcType=INTEGER}
+    </update>
+
+</mapper>

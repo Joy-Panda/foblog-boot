@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="studio.baxia.fo.dao.MessageMapper">
+
+    <resultMap id="MessageMap" type="studio.baxia.fo.pojo.Message">
+        <result property="id" column="id"/>
+        <result property="articleId" column="article_id"/>
+        <result property="blockId" column="block_id"/>
+        <result property="parentId" column="parent_id"/>
+        <result property="content" column="content"/>
+        <result property="userType" column="user_type"/>
+        <result property="authorId" column="author_id"/>
+        <result property="updateTime" column="update_time" />
+        <result property="pubTime" column="pub_time"/>
+    </resultMap>
+
+    <delete id="deleteByIds">
+        DELETE FROM t_message
+        <if test="ids!=null">
+            <if test="ids.size()==0">
+                WHERE id = 0
+            </if>
+            <if test="ids.size()!=0">
+                WHERE id IN
+                <foreach collection="ids" index="index" item="item" open="(" separator="," close=")">
+                    #{item,jdbcType=INTEGER}
+                </foreach>
+            </if>
+        </if>
+    </delete>
+
+    <select id="selectByArticleId" resultMap="MessageMap">
+        SELECT * FROM t_message
+        <where>
+            article_id = #{articleId,jdbcType=INTEGER}
+            <if test="parentId!=null">
+                AND parent_id = #{parentId,jdbcType=INTEGER}
+            </if>
+            <if test="blockId!=null">
+                AND block_id = #{blockId,jdbcType=INTEGER}
+            </if>
+        </where>
+        <if test="reverseOrder==1">
+            ORDER BY id DESC
+        </if>
+        <if test="reverseOrder==0">
+            ORDER BY id
+        </if>
+    </select>
+
+
+    <resultMap id="ArticleMessageVoMap" type="studio.baxia.fo.vo.ArticleMessageVo">
+    </resultMap>
+
+    <select id="selectArticleMessageVo" resultMap="ArticleMessageVoMap">
+        select tm1.id as messageId,tm1.content as messageContent,tm1.support_count as messageSupportCount,tm1.pub_time as messagePubTime,tg.nickname as guestNickname,tg.personal_website as guestWebsite
+        from
+        (
+        select tm.*
+        from t_message tm
+        where article_id = #{articleId,jdbcType=INTEGER}
+        ) as tm1
+        left JOIN t_guest tg
+        on tm1.author_id = tg.id
+        <if test="reverseOrder==1">
+            ORDER BY messageId DESC
+        </if>
+        <if test="reverseOrder==0">
+            ORDER BY messageId
+        </if>
+    </select>
+</mapper>

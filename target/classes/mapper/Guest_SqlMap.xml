@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="studio.baxia.fo.dao.GuestMapper">
+    <resultMap id="BaseResultMap" type="studio.baxia.fo.pojo.Guest">
+        <id column="id" property="id" jdbcType="INTEGER"/>
+        <result column="email" property="email" jdbcType="VARCHAR"/>
+        <result column="nickname" property="nickname" jdbcType="VARCHAR"/>
+        <result column="personal_website" property="personalWebsite" jdbcType="VARCHAR"/>
+        <result column="access_ip" property="accessIp" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id, email, nickname, personal_website, access_ip
+    </sql>
+
+    <!--通过给定条件查询-->
+    <select id="queryOneByCondition" parameterType="java.util.Map" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from t_guest
+        <trim prefix="WHERE" prefixOverrides="AND | OR">
+            <if test="id!=null">
+                AND id = #{id}
+            </if>
+            <if test="email!=null">
+                AND email = #{email}
+            </if>
+            <if test="nickname!=null">
+                AND nickname = #{nickname}
+            </if>
+            <if test="personal_website!=null">
+                AND personal_website = #{personal_website}
+            </if>
+            <if test="access_ip!=null">
+                AND access_ip = #{access_ip}
+            </if>
+        </trim>
+    </select>
+</mapper>

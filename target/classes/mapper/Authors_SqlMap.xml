@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="studio.baxia.fo.dao.AuthorsMapper">
+
+	<resultMap id="AuthorsMap" type="studio.baxia.fo.pojo.Authors">
+		<result property="id" column="id" />
+		<result property="account" column="account" />
+		<result property="password" column="password" />
+		<result property="userStatus" column="user_status" />
+		<result property="penName" column="pen_name" />
+		<result property="email" column="email" />
+		<result property="profile" column="profile" />
+		<result property="otherInfo" column="other_info" />
+		<result property="verificationCode" column="verification_code" />
+		<result property="verifCodeDeadline" column="verif_code_deadline" />
+		<result property="securityQuestionId" column="security_question_id" />
+	</resultMap>
+
+</mapper>
