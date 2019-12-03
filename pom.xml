@@ -45,7 +45,7 @@
         <commons-compress.version>1.6</commons-compress.version>
         <commons-math.version>2.2</commons-math.version>
         <commons-digester.version>2.1</commons-digester.version>
-        <commons-fileupload.version>1.3</commons-fileupload.version>
+        <commons-fileupload.version>1.3.3</commons-fileupload.version>
         <commons-configuration.version>1.10</commons-configuration.version>
         <bouncycastle.version>1.46</bouncycastle.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
